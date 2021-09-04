@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{graphicx}
+\newcommand{\diaglength}{3em}
+\begin{document}
+\thispagestyle{empty}
+\noindent
+\setlength{\unitlength}{\diaglength}
+\psset{xunit=\diaglength,yunit=-\diaglength}
+\begin{pspicture}(1,1)
+\cnode[fillcolor=black,fillstyle=solid](1, 0){0.1}{a}
+\nput[labelsep=2.5pt]{90}{a}{\small $a$}
+\cnode[fillcolor=black,fillstyle=solid](0, 1){0.1}{b}
+\nput[labelsep=2.5pt]{-90}{b}{\small $b$}
+\cnode[fillcolor=black,fillstyle=solid](2, 1){0.1}{c}
+\nput[labelsep=2.5pt]{-90}{c}{\small $c$}
+\ncline[nodesep=-1pt,linecolor=black,linewidth=0.7pt]{-}{a}{b}
+\ncline[nodesep=-1pt,linecolor=black,linewidth=0.7pt]{-}{a}{c}
+\rput(1, 2){$P$}
+\cnode[fillcolor=black,fillstyle=solid](3, 0){0.1}{d}
+\nput[labelsep=2.5pt]{-90}{d}{\small $d$}
+\cnode[fillcolor=black,fillstyle=solid](5, 0){0.1}{e}
+\nput[labelsep=2.5pt]{-90}{e}{\small $e$}
+\cnode[fillcolor=black,fillstyle=solid](4, 1){0.1}{f}
+\nput[labelsep=2.5pt]{-90}{f}{\small $f$}
+\ncline[nodesep=-1pt,linecolor=black,linewidth=0.7pt]{-}{d}{f}
+\ncline[nodesep=-1pt,linecolor=black,linewidth=0.7pt]{-}{e}{f}
+\rput(4, 2){$Q$}
+
+\end{pspicture}
+\end{document}

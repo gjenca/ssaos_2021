@@ -1,0 +1,310 @@
+\documentclass{beamer}
+\usetheme{Boadilla}
+\usepackage{ifpdf}
+\ifpdf
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[all,pdf,2cell]{xy}\UseAllTwocells\SilentMatrices
+\else
+\usepackage[all,xdvi,2cell]{xy}\UseAllTwocells\SilentMatrices
+\fi
+
+\usepackage{newunicodechar}
+\usepackage{cmbright}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\obj}{\mathrm{obj}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\isleftadjoint}{\dashv}
+\newcommand{\VoltG}{{\mathbf{Volt}_Γ}}
+\newcommand{\LabG}{{\mathbf{Lab}_Γ}}
+\newcommand{\ActLab}{{\mathbf{ActLab}_Γ}}
+\newcommand{\KG}{{\mathring{K}(Γ)}}
+\newcommand{\K}{\mathring{K}}
+\renewcommand{\k}{\mathring{k}}
+\newcommand{\lG}{{\ell(Γ)}}
+\newcommand{\pb}[3]{{#1}×_{#2}{#3}}
+\newcommand{\newcategory}[1]{\expandafter\newcommand\csname #1\endcsname{\mathbf{#1}}}
+\newcommand{\Graph}{\mathbf{Graph}}
+\newcommand{\Volt}{\mathbf{Volt}}
+\newcommand{\Lab}{\mathbf{Lab}}
+\newcommand{\RelPos}{\mathbf{RelPos}}
+\newcommand{\RelPosInv}{\mathbf{RelPosInv}}
+\makeatletter
+\def\slashedarrowfill@#1#2#3#4#5{%
+  $\m@th\thickmuskip0mu\medmuskip\thickmuskip\thinmuskip\thickmuskip
+  \relax#5#1\mkern-7mu%
+  \cleaders\hbox{$#5\mkern-2mu#2\mkern-2mu$}\hfill
+  \mathclap{#3}\mathclap{#2}%
+  \cleaders\hbox{$#5\mkern-2mu#2\mkern-2mu$}\hfill
+  \mkern-7mu#4$%
+}
+\def\rightslashedarrowfill@{%
+  \slashedarrowfill@\relbar\relbar\mapstochar\rightarrow}
+\newcommand\xslashedrightarrow[2][]{%
+  \ext@arrow 0055{\rightslashedarrowfill@}{#1}{#2}}
+\makeatother
+\newcommand{\sto}{\xslashedrightarrow{\hskip 1pc}}
+
+\newunicodechar{α}{\alpha}
+\newunicodechar{β}{\beta}
+\newunicodechar{λ}{\lambda}
+\newunicodechar{Γ}{\Gamma}
+\newunicodechar{×}{\times}
+\newunicodechar{≤}{\leq}
+\newunicodechar{≥}{\geq}
+
+\title[Isotone relations and EAs]{Isotone relations and effect algebras\\
+\small{arXiv:????}}
+\author{Gejza Jenča}
+\institute[]{Slovak University of Technology Bratislava}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+\maketitle
+\end{frame}
+\begin{frame}
+\frametitle{The definition}
+\begin{definition}
+Let $P,Q$ be posets. A relation $f\subseteq P\times Q$ is {\em isotone relation
+from $P$ to $Q$}
+if and only if, for every $p_1,p_2\in P$ and $q_1,q_2\in Q$,
+$$
+p_2\geq p_1\text{ and } f(p_1,q_2)\text{ and }q_2\geq q_1\text{ imply } f(p_2,q_1)
+$$
+\end{definition}
+We write $f\colon P\sto Q$ for a monotone relation $f$ from $P$ to $Q$.
+\begin{example}
+Let $P$, $Q$ be posets. Both the universal 
+relation $P\times Q\subseteq P\times Q$ and the empty relation $\emptyset\subseteq P\times
+Q$ are monotone.
+\end{example}
+\end{frame}
+
+\begin{frame}
+It is instructive to visualize a monotone relation between two disjoint finite
+posets $P$ and $Q$ in the following way.
+\begin{itemize}
+\item Draw the Hasse diagram of $Q$.
+\item Draw the Hasse diagram of $P$ over the diagram of $Q$.
+\item Draw some additional lines between elements of $P$ and elements of $Q$,
+so that the resulting picture is a Hasse diagram of a poset $C$.
+\item This poset then determines a monotone relation $f_C\subseteq P\times Q$ 
+given by the rule $f_C(p,q)$ if and only if $q\leq_C p$.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{center}
+\includegraphics{PQ}
+\includegraphics{cograph}
+\end{center}
+\end{frame}
+\begin{frame}
+Let $P,Q,R$ be posets, let $f\colon P\sto Q$ and $g\colon Q\sto R$ be
+monotone relations. The composite relation $g\circ f\subseteq|P|\times|R|$ is given
+by the rule
+$$
+(g\circ f)(p,r)\text{ if and only if }
+	f(p,q)\text{ and }g(q,r)\text{ for some }q\in Q.
+$$
+It is easy to check that the composite relation of two monotone relations is
+monotone and that the opration of composition is associative.
+\end{frame}
+
+\begin{frame}
+For a poset $P$, the {\em identity monotone relation} is the relation
+$\id_P\colon P\sto P$ given by the rule
+$$
+\id_P(x,y)\Leftrightarrow x\geq y
+$$
+It is easy to see that for every monotone relation $f\colon P\sto Q$,
+$f=\id_Q\circ f=f\circ\id_P$.
+\end{frame}
+
+\begin{frame}
+The category of posets and monotone relations, denoted by $\RelPos$, is a category
+hose objects are posets and arrows are monotone relations.
+
+\end{frame}
+\begin{frame}
+The direct product $\otimes$ of posets is a bifunctor from
+$\RelPos\times\RelPos$ to $\RelPos$. Indeed, for a pair of monotone relations
+$f\colon A\sto B$ and $g\colon C\sto D$ the isotone relation $(f\otimes g)\colon
+A\otimes C\sto B\otimes D$ by the rule
+$$
+(f\otimes g)((a,c),(b,d)) \Leftrightarrow f(a,b)\text{ and }g(c,d)
+$$
+\end{frame}
+\begin{frame}
+$(\RelPos,\otimes,I)$ is a symmetric
+monoidal category
+\end{frame}
+\begin{frame}
+
+A {\em dual object} to an object $A$ of a symmetric monoidal category $(\C,\otimes,I)$ is an object
+$A^*$ such that there are morphisms
+$\eta_A\colon I\to A^*\otimes A$ and $\epsilon_A\colon A\otimes A^*\to I$ such
+that the diagrams
+\begin{equation}
+\label{diag:compact}
+\xymatrix{
+A
+	\ar[r]^{\rho_A^{-1}}
+	\ar[dd]_{\id_A}
+&
+A\otimes I
+	\ar[d]^{\id_A\otimes\eta_A}
+\\
+~
+&
+A\otimes A^*\otimes A
+	\ar[d]^{\epsilon_A\otimes\id_A}
+\\
+A
+&
+I\otimes A
+	\ar[l]^{\lambda_A}
+}
+\qquad
+\xymatrix{
+A^*
+	\ar[r]^{\lambda_{A^*}^{-1}}
+	\ar[dd]_{\id_{A*}}
+&
+I\otimes A^*
+	\ar[d]^{\eta_A\otimes\id_{A^*}}
+\\
+~
+&
+A^*\otimes A\otimes A^*
+	\ar[d]^{\id_{A^*}\otimes\epsilon_A}
+\\
+A
+&
+A^*\otimes I
+	\ar[l]^{\rho_{A^*}}
+}
+\end{equation}
+commute. The morphisms $\eta_A$ and $\epsilon_A$ are called {\em coevaluation} and
+{\em evaluation}, respectively. 
+\end{frame}
+
+\begin{frame}
+\begin{definition}
+A symmetric monoidal category is {\em compact closed}
+if every of its objects has a dual.
+\end{definition}
+\begin{theorem}
+$(\RelPos,\times,\mathbf 1)$ is a compact closed category. The dual object of a poset $A$
+is the dual poset.
+\end{theorem}
+\end{frame}
+\begin{frame}
+A {\em dagger category} is a category $\C$ 
+equipped with an functor $\dag\colon\C\to\C^{op}$ that is identity
+on objects and satisfies $f^{\dag\dag}=f$ for every morphism $f$ of $\C$. In
+fact, the $\dag$ functor can be characterized a mapping on the class of morphisms
+of $\C$ that has the following properties:
+\begin{itemize}
+\item $(\id_H)^\dag=\id_H$
+\item $(f\circ g )^\dag=g^\dag\circ f^\dag$
+\item $f^{\dag\dag}=f$
+\end{itemize}
+\end{frame}
+\begin{frame}
+An {\em involution} on a poset $P$ is mapping $'\colon P\to P$ satisfying the following
+conditions.
+\begin{itemize}
+\item For all $x,y\in P$, $x≤y$ if and only if $y'≤x'$.
+\item For all $x\in P$, $x''=x$.
+\end{itemize}
+A poset equipped with an involution is called {\em involutive poset}, or
+{\em pose with involution}.
+\end{frame}
+\begin{frame}
+The category $\RelPosInv$ has posets equipped with involutions for objects and
+monotone relations for morphisms. Note that the morphism in $\RelPosInv$ do not
+interact with the involutive structure at all. However, the involutive structure
+on objects allows us to flip the morphisms: if $f\colon A\sto B$ is a monotone
+relation, then there is a monotone relation $f^\dag\colon B\sto A$ given by the
+rule
+$$
+f^\dag(b,a)=f(a',b').
+$$ 
+It is easy to check that $f^\dag$ is a monotone relation.
+Moreover, $\RelPosInv$ equipped with $\dag$ is a dagger category.
+\end{frame}
+\begin{frame}
+\begin{theorem}
+$\RelPosInv$ is a dagger compact category.
+\end{theorem}
+\end{frame}
+\begin{frame}
+A {\em Frobenius structure} in a symmetric monoidal category $(\C,\otimes,I)$ is an object
+$A$ equipped with a monoid structure $(A,\nabla,e)$ and a comonoid structure
+$(A,\Delta,c)$ such that the following diagram commutes
+\begin{equation}
+\label{diag:frobenius}
+\xymatrix{
+A\otimes A
+	\ar[rr]^-{\id_A\otimes\Delta}
+	\ar[rd]^-{\nabla}
+	\ar[dd]_-{\Delta\otimes\id_A}
+&
+~
+&
+A\otimes A\otimes A
+	\ar[dd]^-{\nabla\otimes\id_A}
+\\
+~
+&
+A
+	\ar[rd]^-{\Delta}
+\\
+A\otimes A\otimes A
+	\ar[rr]_-{\id_A\otimes\nabla}
+&
+~
+&
+A\otimes A
+}
+\end{equation}
+A Frobenius structure is a {\em dagger Frobenius structure} if
+$\nabla=\Delta^\dag$ and $m=c^\dag$. Clearly, every dagger Frobenius structure
+is completely determined by its (co)monoid structure.
+\end{frame}
+
+\begin{frame}
+An {\em effect algebra} 
+is a partial algebra $(E,\oplus,0,1)$ with a binary 
+partial operation $\oplus$ and two nullary operations $0,1$ satisfying
+the following conditions.
+\begin{enumerate}
+\item[(E1)]If $a\oplus b$ is defined, then $b\oplus a$ is defined and
+		$a\oplus b=b\oplus a$.
+\item[(E2)]If $a\oplus b$ and $(a\oplus b)\oplus c$ are defined, then
+		$b\oplus c$ and $a\oplus(b\oplus c)$ are defined and
+		$(a\oplus b)\oplus c=a\oplus(b\oplus c)$.
+\item[(E3)]For every $a\in E$ there is a unique $a'\in E$ such that
+		$a\oplus a'$ exists and $a\oplus a'=1$.
+\item[(E4)]If $a\oplus 1$ is defined, then $a=0$.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+For every effect algebra $E$, there is a (clearly monotone) relation
+$\nabla\colon E\sto E\otimes E$ given by the rule
+$$
+\nabla(x,(a,b))\Leftrightarrow x\geq a\oplus b
+$$. Moreover, there is a monotone relation $c\colon E\sto I$ given by 
+$c=E\to I$ (the total relation).
+\end{frame}
+
+\end{document}
