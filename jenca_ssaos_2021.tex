@@ -34,6 +34,9 @@
 \newcommand{\Graph}{\mathbf{Graph}}
 \newcommand{\Volt}{\mathbf{Volt}}
 \newcommand{\Lab}{\mathbf{Lab}}
+\newcommand{\Vect}{\mathbf{Vect}}
+\newcommand{\FinVect}{\mathbf{FinVect}}
+\newcommand{\FinHilb}{\mathbf{FinHilb}}
 \newcommand{\RelPos}{\mathbf{RelPos}}
 \newcommand{\RelPosInv}{\mathbf{RelPosInv}}
 \makeatletter
@@ -60,20 +63,23 @@
 \newunicodechar{≤}{\leq}
 \newunicodechar{≥}{\geq}
 
-\title[Isotone relations and EAs]{Isotone relations and effect algebras\\
-\small{arXiv:????}}
+\title[Monotone relations and EAs]{Monotone relations and effect algebras}
 \author{Gejza Jenča}
 \institute[]{Slovak University of Technology Bratislava}
 \date{\today}
 
 \begin{document}
 \begin{frame}
-\maketitle
+\titlepage
+
+\tiny This research is supported by grants VEGA 2/0142/20 and 1/0006/19,
+Slovakia and by the Slovak Research and Development Agency under the contracts
+APVV-18-0052 and APVV-16-0073.
 \end{frame}
 \begin{frame}
 \frametitle{The definition}
 \begin{definition}
-Let $P,Q$ be posets. A relation $f\subseteq P\times Q$ is {\em isotone relation
+Let $P,Q$ be posets. A relation $f\subseteq P\times Q$ is {\em monotone relation
 from $P$ to $Q$}
 if and only if, for every $p_1,p_2\in P$ and $q_1,q_2\in Q$,
 $$
@@ -92,10 +98,10 @@ Q$ are monotone.
 It is instructive to visualize a monotone relation between two disjoint finite
 posets $P$ and $Q$ in the following way.
 \begin{itemize}
-\item Draw the Hasse diagram of $Q$.
-\item Draw the Hasse diagram of $P$ over the diagram of $Q$.
-\item Draw some additional lines between elements of $P$ and elements of $Q$,
-so that the resulting picture is a Hasse diagram of a poset $C$.
+\item Draw the Hasse diagram of $Q$.\pause
+\item Draw the Hasse diagram of $P$ over the diagram of $Q$.\pause
+\item Draw some additional lines between elements of $P$ and elements of $Q$,\pause
+so that the resulting picture is a Hasse diagram of a poset $C$.\pause
 \item This poset then determines a monotone relation $f_C\subseteq P\times Q$ 
 given by the rule $f_C(p,q)$ if and only if $q\leq_C p$.
 \end{itemize}
@@ -107,6 +113,14 @@ given by the rule $f_C(p,q)$ if and only if $q\leq_C p$.
 \end{center}
 \end{frame}
 \begin{frame}
+For every monotone mapping $f\colon P\to Q$, there is a monotone relation
+$\widehat f\colon P\sto Q$ given by
+$$
+\widehat f(p,q)\Leftrightarrow f(p)\geq q
+$$
+\end{frame}
+
+\begin{frame}
 Let $P,Q,R$ be posets, let $f\colon P\sto Q$ and $g\colon Q\sto R$ be
 monotone relations. The composite relation $g\circ f\subseteq|P|\times|R|$ is given
 by the rule
@@ -115,7 +129,7 @@ $$
 	f(p,q)\text{ and }g(q,r)\text{ for some }q\in Q.
 $$
 It is easy to check that the composite relation of two monotone relations is
-monotone and that the opration of composition is associative.
+monotone and that the operation of composition is associative.
 \end{frame}
 
 \begin{frame}
@@ -130,21 +144,28 @@ $f=\id_Q\circ f=f\circ\id_P$.
 
 \begin{frame}
 The category of posets and monotone relations, denoted by $\RelPos$, is a category
-hose objects are posets and arrows are monotone relations.
+whose objects are posets and morphisms are monotone relations.
 
 \end{frame}
 \begin{frame}
 The direct product $\otimes$ of posets is a bifunctor from
 $\RelPos\times\RelPos$ to $\RelPos$. Indeed, for a pair of monotone relations
-$f\colon A\sto B$ and $g\colon C\sto D$ the isotone relation $(f\otimes g)\colon
+$f\colon A\sto B$ and $g\colon C\sto D$ the monotone relation $(f\otimes g)\colon
 A\otimes C\sto B\otimes D$ by the rule
 $$
 (f\otimes g)((a,c),(b,d)) \Leftrightarrow f(a,b)\text{ and }g(c,d)
 $$
 \end{frame}
 \begin{frame}
-$(\RelPos,\otimes,I)$ is a symmetric
+\begin{itemize}
+\item 
+Fix a $1$-element poset and call it $\mathbf 1$.
+\item
+$(\RelPos,\otimes,\mathbf 1)$ is a symmetric
 monoidal category
+\item For cographs, we have $cog(f\otimes g)=cog(f)\times cog(g)$.
+\end{itemize}
+
 \end{frame}
 \begin{frame}
 
@@ -195,17 +216,54 @@ A^*\otimes I
 commute. The morphisms $\eta_A$ and $\epsilon_A$ are called {\em coevaluation} and
 {\em evaluation}, respectively. 
 \end{frame}
+\begin{frame}
+\begin{itemize}
+\item If $A^*$ and $A^+$ are dual objects of an object $A$, then $A^*\simeq A^+$.\pause
+\item Consider the symmetric monoidal category of vector spaces 
+equipped with the tensor product $(\Vect(K),\otimes,K)$. A vector space $V$ has
+a dual iff $V$ is finitely dimensional;\pause
+\item the dual object of $V$ is then simply the usual linear dual of $V$.\pause
+\item Modules over a commutative ring: $M$ has a dual iff $M$ is a finitely generated
+projective module.\pause
+\item By fixing a chosen dual for each object, taking a dual can be made to a
+contravariant functor $*\colon\C\to\C^{op}$.\pause
+\item So, for a morphism $f\colon A\to B$ there is a dual morphism $f^*\colon B^*\to
+A^*$.\pause
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \begin{definition}
 A symmetric monoidal category is {\em compact closed}
 if every of its objects has a dual.
 \end{definition}
+
+The category of finite-dimensional vector spaces $\FinVect(K)$ is compact closed.
+\end{frame}
+\begin{frame}
 \begin{theorem}
-$(\RelPos,\times,\mathbf 1)$ is a compact closed category. The dual object of a poset $A$
-is the dual poset.
+\begin{itemize}
+\item
+$(\RelPos,\times,\mathbf 1)$ is a compact closed category. 
+\item The dual object of a poset $A$
+is the dual poset of $A$.
+\item For cographs: $cog(f^*)\simeq (cog(f))^*$.
+\end{itemize}
 \end{theorem}
 \end{frame}
+\begin{frame}
+\begin{itemize}
+\item $\FinVect(\mathbb C)$ is compact closed.\pause
+\item $\FinHilb$ (finite dimensional Hilbert spaces) is compact closed as well.\pause
+\item What do we gain if we equip vector spaces with an inner product?\pause
+\item We gain the Riesz representation theorem, which means that every object $V$ of
+$\FinHilb$ is equipped with a canonical isomorphism $V\to V^*$.\pause
+\item On categorical level, every morphism $f\colon V\to U$ is equipped with
+another morphism $f^\dag\colon U\to V$ such that $f^{\dag\dag}=f$.
+\end{itemize}
+\end{frame}
+ 
 \begin{frame}
 A {\em dagger category} is a category $\C$ 
 equipped with an functor $\dag\colon\C\to\C^{op}$ that is identity
@@ -219,6 +277,15 @@ of $\C$ that has the following properties:
 \end{itemize}
 \end{frame}
 \begin{frame}
+\begin{itemize}
+\item $\RelPos$ is probably {\em not} a dagger category.
+\item However, there is a partial solution:\pause ~we can replace $\RelPos$ with a
+category of self-dual posets with a fixed isomorphism $'\colon A\to A^*$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
 An {\em involution} on a poset $P$ is mapping $'\colon P\to P$ satisfying the following
 conditions.
 \begin{itemize}
@@ -226,7 +293,7 @@ conditions.
 \item For all $x\in P$, $x''=x$.
 \end{itemize}
 A poset equipped with an involution is called {\em involutive poset}, or
-{\em pose with involution}.
+{\em poset with involution}.
 \end{frame}
 \begin{frame}
 The category $\RelPosInv$ has posets equipped with involutions for objects and
@@ -242,7 +309,7 @@ It is easy to check that $f^\dag$ is a monotone relation.
 Moreover, $\RelPosInv$ equipped with $\dag$ is a dagger category.
 \end{frame}
 \begin{frame}
-\begin{theorem}
+\begin{theorem}[GJ]
 $\RelPosInv$ is a dagger compact category.
 \end{theorem}
 \end{frame}
@@ -280,6 +347,17 @@ A Frobenius structure is a {\em dagger Frobenius structure} if
 $\nabla=\Delta^\dag$ and $m=c^\dag$. Clearly, every dagger Frobenius structure
 is completely determined by its (co)monoid structure.
 \end{frame}
+\begin{frame}
+\begin{theorem}[Vicary] Dagger Frobenius structures in $\FinHilb$ are $H^*$-algebras.
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+\begin{problem}
+What are dagger Frobenius structures in $\RelPosInv$?
+\end{problem}
+I do not know, but I have nice examples!
+\end{frame}
 
 \begin{frame}
 An {\em effect algebra} 
@@ -300,11 +378,24 @@ the following conditions.
 
 \begin{frame}
 For every effect algebra $E$, there is a (clearly monotone) relation
-$\nabla\colon E\sto E\otimes E$ given by the rule
+$\Delta\colon E\sto E\otimes E$ given by the rule
 $$
-\nabla(x,(a,b))\Leftrightarrow x\geq a\oplus b
-$$. Moreover, there is a monotone relation $c\colon E\sto I$ given by 
+\Delta(x,(a,b))\Leftrightarrow x\geq a\oplus b
+$$ Moreover, there is a monotone relation $c\colon E\sto I$ given by 
 $c=E\to I$ (the total relation).
+\end{frame}
+\begin{frame}
+\begin{theorem}[GJ]
+For every effect algebra $E$, $(E,\Delta,c)$ is a comonoid that
+gives rise to a dagger Frobenius structure on $E$.
+\end{theorem}
+
+\end{frame}
+\begin{frame}
+\begin{center}
+\includegraphics[scale=0.4]{Thats_all_folks.svg.png}
+\end{center}
+
 \end{frame}
 
 \end{document}

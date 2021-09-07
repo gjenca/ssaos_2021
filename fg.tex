@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{graphicx}
+\newcommand{\diaglength}{3em}
+\begin{document}
+\thispagestyle{empty}
+\noindent
+\setlength{\unitlength}{\diaglength}
+\psset{xunit=\diaglength,yunit=-\diaglength}
+\begin{pspicture}(1,1)
+\rput(0, 0){\rnode{1}{$1$}}
+\rput(1, 0){\rnode{a}{$a$}}
+\rput(0, 1){\rnode{2}{$2$}}
+\rput(1, 1){\rnode{b}{$b$}}
+\rput(0, 2){\rnode{3}{$3$}}
+\rput(1, 2){\rnode{c}{$c$}}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{1}{a}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{2}{b}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{3}{c}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{3}{a}
+\rput(0.5, -0.5){$f$}
+\rput(1.5, 0){\rnode{1}{$1$}}
+\rput(2.5, 0){\rnode{a}{$a$}}
+\rput(1.5, 1){\rnode{2}{$2$}}
+\rput(2.5, 1){\rnode{b}{$b$}}
+\rput(1.5, 2){\rnode{3}{$3$}}
+\rput(2.5, 2){\rnode{c}{$c$}}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{1}{a}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{2}{b}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{3}{c}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{2}{a}
+\ncline[nodesep=1.5pt,linecolor=black,linewidth=0.7pt]{->}{3}{b}
+\rput(2, -0.5){$g$}
+\end{pspicture}
+\end{document}
